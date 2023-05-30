@@ -48,8 +48,8 @@ export default function page() {
                             required
                         />
                         <div className="flex items-center justify-between gap-4">
-                            <button type="submit" className="rounded-md w-full p-3 mt-3 text-white text-sm bg-red-600">Login</button>
-                            <Link href={'/signup'}>
+                            <button type="submit" className="rounded-md w-fit py-3 px-5 mt-3 text-white text-sm bg-red-600">Login</button>
+                            <Link href={'/forgot-password'}>
                                 <span className="w-full p-3 text-red-600 text-sm">Forgot Password?</span>
                             </Link>
                         </div>
