@@ -52,8 +52,8 @@ export default function RootLayout({
               <span className='font-bold mb-2'> Zlag </span>
               <span className='text-sm'> Subscribe </span>
               <div className="relative block">
-                <input type="text" id="search-navbar" className="block w-full p-2 pr-10 text-sm text-gray-900 outline-none border border-gray-300 rounded-md bg-red-600" placeholder="Search..." />
-                <div className="absolute inset-y-0 right-2 flex items-center pl-3 pointer-events-none">
+                <input type="text" id="search-navbar" className="block w-full p-2 pr-10 text-sm text-white outline-none border border-gray-300 rounded-md bg-red-600" placeholder="Search..." />
+                <div className="absolute inset-y-0 right-2 flex items-center pl-3 cursor-pointer">
                   <span className='text-neutral-100'><SendIcon /></span>
                   <span className="sr-only">Search icon</span>
                 </div>
