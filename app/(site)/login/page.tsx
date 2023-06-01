@@ -1,5 +1,4 @@
 'use client'
-import GoogleIcon from "@/app/icons/GoogleIcon";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
