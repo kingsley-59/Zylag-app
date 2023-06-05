@@ -44,5 +44,92 @@
         "Women's Fashion", "Men's Fashion", "Electronics", "Home & Lifestyle", "Medicine",
         "Sports & Outdoor", "Baby's & Toys", "Groceries & Pets", "Health & Beauty"
     ],
-    "bestSelling": []
+    "bestSelling": [
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        }
+    ],
+    "products": [
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": true
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": false
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": false
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": true
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": false
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": true
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": false
+        },
+        {
+            "name": "Breed Dry Dog Food",
+            "image": "/dog-food.png",
+            "price": 100,
+            "isNew": false
+        }
+    ]
 }

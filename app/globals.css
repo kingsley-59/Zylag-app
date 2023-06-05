@@ -26,3 +26,18 @@ body {
     rgb(var(--background-start-rgb)); */
   background: #FAFAFA;
 }
+
+@layer utilities {
+  .center {
+    @apply flex justify-center items-center;
+  }
+  .col-center {
+    @apply flex flex-col justify-center items-center;
+  }
+  .start {
+    @apply flex justify-start items-start;
+  }
+  .between {
+    @apply flex justify-between items-center;
+  }
+}

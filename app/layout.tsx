@@ -3,6 +3,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import SendIcon from './icons/SendIcon'
 import { Providers } from './redux/provider'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,10 +27,10 @@ export default function RootLayout({
                 Zylag
               </div>
               <div className="hidden md:flex items-center gap-3 lg:gap-4">
-                <span>Home</span>
-                <span>Contact</span>
-                <span>About</span>
-                <span>Sign up</span>
+                <Link href={'/'}><span>Home</span></Link>
+                <Link href={'/contact'}><span>Contact</span></Link>
+                <Link href={'/about'}><span>About</span></Link>
+                <Link href={'/signup'}><span>Sign up</span></Link>
               </div>
               <div className="relative hidden md:block">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
