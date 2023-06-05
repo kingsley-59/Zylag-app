@@ -1,0 +1,48 @@
+{
+    "flashSales": [
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        },
+        {
+            "name": "HAVIT HV-G92 Gamepad",
+            "image": "/gamepad-g92.png",
+            "price": 120,
+            "originalprice": 160
+        }
+    ],
+    "categories": [
+        "Phones", "Computers", "SmartWatch", "Camera", "HeadPhones", "Gaming"
+    ],
+    "mainCategories": [
+        "Women's Fashion", "Men's Fashion", "Electronics", "Home & Lifestyle", "Medicine",
+        "Sports & Outdoor", "Baby's & Toys", "Groceries & Pets", "Health & Beauty"
+    ],
+    "bestSelling": []
+}
