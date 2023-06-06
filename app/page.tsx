@@ -239,7 +239,7 @@ export default function Home() {
   return (
     <div className='w-full flex flex-col gap-5 md:gap-8 lg:gap-12 2xl:max-w-[1500px] pb-5 px-5 md:px-10 lg:px-20 text-sm'>
       <div className="w-full flex items-start">
-        <div className="basis-1/4 hidden lg:block border-r-[1px] border-r-neutral-200">
+        <div className="basis-1/4 hidden lg:block border-r-[1px] border-r-neutral-200 pt-4">
           <div className="flex flex-col items-start gap-4">
             {mainCategories.map((val, idx) => (
               <span key={idx}>{val}</span>
