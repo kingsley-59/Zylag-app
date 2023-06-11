@@ -37,6 +37,9 @@ body {
   .start {
     @apply flex justify-start items-start;
   }
+  .col-start {
+    @apply flex flex-col justify-start items-start;
+  }
   .between {
     @apply flex justify-between items-center;
   }
