@@ -50,7 +50,7 @@ export default function RootLayout({
           </header>
 
           <hr className='w-full border-t-neutral-100' />
-          <section className='w-full min-h-[400px] flex justify-center items-center'>
+          <section className='w-full max-w-screen-2xl mx-auto min-h-[400px] flex justify-center items-center'>
             {children}
           </section>
 
