@@ -1,19 +1,57 @@
 'use client'
+import { axiosInstance } from "@/app/config";
+import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
+import { useAppDispatch } from "@/app/redux/hooks";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useSearchParams, useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState } from "react";
 
 
 export default function page() {
+    const searchParams = useSearchParams()
+    const router = useRouter()
+    const dispatch = useAppDispatch()
+
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('')
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = async function (e: FormEvent) {
         e.preventDefault();
+        setLoading(true)
 
-        console.log(name, email, password);
-        setEmail('')
-        setPassword('')
+        try {
+            const { data, status } = await axiosInstance.post('/auth/login', { email, password});
+            if (status >= 400) {
+                dispatch(setErrorMsg(data?.error));
+                return;
+            }
+            dispatch(setSuccessMsg(data?.message));
+            setEmail('')
+            setPassword('')
+            setTimeout(() => router.push('/account/settings'), 3000);
+        } catch (error: any) {
+            dispatch(setErrorMsg("Something went wrong"));
+            console.log(error)
+        } finally {
+            setLoading(false);
+        }
     }
+
+    useEffect(() => {
+        const token = searchParams.get('token');
+        if (token) {
+            axiosInstance.get('/auth/verify-email', { params: { token } })
+                .then(({ data, status }) => {
+                    if (status === 200) dispatch(setSuccessMsg(data.message));
+                    else dispatch(setErrorMsg(data?.error));
+                })
+                .catch(error => {
+                    console.log(error);
+                    dispatch(setErrorMsg("Something went wrong."));
+                })
+        }
+    }, [])
 
     return (
         <div className="w-full h-full min-h-[100px] p-3 md:p-5 lg:p-10 bg-gradient-to-r from-red-100 ">
@@ -47,7 +85,7 @@ export default function page() {
                             required
                         />
                         <div className="flex items-center justify-between gap-4">
-                            <button type="submit" className="rounded-md w-fit py-3 px-5 mt-3 text-white text-sm bg-red-600">Login</button>
+                            <button type="submit" className="rounded-md w-fit py-3 px-5 mt-3 text-white text-sm bg-red-600 disabled:bg-red-400" disabled={loading}>Login</button>
                             <Link href={'/forgot-password'}>
                                 <span className="w-full p-3 text-red-600 text-sm">Forgot Password?</span>
                             </Link>

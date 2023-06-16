@@ -7,6 +7,7 @@ import Link from 'next/link'
 import ProfileAvatar from './components/ProfileAvatar'
 import HeartIcon from './icons/HeartIcon'
 import SearchBar from './components/SearchBar'
+import AlertBar from './components/AlertBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -50,6 +51,7 @@ export default function RootLayout({
           </header>
 
           <hr className='w-full border-t-neutral-100' />
+          <AlertBar />
           <section className='w-full max-w-screen-2xl mx-auto min-h-[400px] flex justify-center items-center'>
             {children}
           </section>

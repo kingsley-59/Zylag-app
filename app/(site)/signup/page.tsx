@@ -1,5 +1,8 @@
 'use client'
+import { axiosInstance } from "@/app/config";
 import GoogleIcon from "@/app/icons/GoogleIcon";
+import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
+import { useAppDispatch } from "@/app/redux/hooks";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
@@ -8,14 +11,33 @@ export default function page() {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('')
+    const [loading, setLoading] = useState(false)
+
+    const dispatch = useAppDispatch();
 
     const handleSubmit = async function (e: FormEvent) {
         e.preventDefault();
+        setLoading(true)
 
         console.log(name, email, password);
-        setName('')
-        setEmail('')
-        setPassword('')
+
+        try {
+            const { data, status } = await axiosInstance.post('/auth/register', {fullname: name, email, password});
+            if (status >= 400) {
+                dispatch(setErrorMsg(data?.error));
+                return;
+            }
+            console.log(data);
+            dispatch(setSuccessMsg(data?.message));
+            setName('')
+            setEmail('')
+            setPassword('')
+        } catch (error: any) {
+            dispatch(setErrorMsg("Something went wrong"));
+            console.log(error)
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -57,7 +79,7 @@ export default function page() {
                             placeholder="Password"
                             required
                         />
-                        <button type="submit" className="rounded-md w-full p-3 mt-3 text-white text-sm bg-red-600">Create Account</button>
+                        <button type="submit" className="rounded-md w-full p-3 mt-3 text-white text-sm bg-red-600 disabled:bg-red-400" disabled={loading}>Create Account</button>
                         <button type="button" className="rounded-md w-full p-3 mt-3 text-sm bg-transparent border border-neutral-300 flex justify-center items-center gap-2">
                             <GoogleIcon />
                             Sign up with Google
