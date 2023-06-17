@@ -248,8 +248,20 @@ export default function Home() {
         </div>
         <div className='flex-grow p-5'>
           <div className="rounded-2xl relative flex bg-red-900 min-h-[250px]">
-            <div className="basis-1/2 min-h-full rounded-l-2xl p-5 text-neutral-100"></div>
-            <div className='basis-1/2 bg-black min-h-full rounded-r-2xl p-5 text-neutral-100'>b</div>
+            <div className="basis-1/2 flex flex-col items-start justify-center gap-5 min-h-full rounded-l-2xl p-5 lg:p-10 text-neutral-100">
+              <div className='start gap-3'>
+                <img src="/images/apple-logo.png" alt="apple logo" />
+                <span className='text-base'>iPhone 14 series</span>
+              </div>
+              <div className="font-bold text-3xl md:text-4xl lg:text-5xl">Up to 10% off Voucher</div>
+              <div className="start gap-3 cursor-pointer">
+                <span className='underline underline-offset-8 text-base'>Shop now</span>
+                <ArrowRight color='white' />
+              </div>
+            </div>
+            <div className='basis-1/2 bg-black min-h-full rounded-r-2xl text-neutral-100'>
+              <img className='rounded-r-2xl' src="/images/iphone-black-bg.png" alt="iphone picture" />
+            </div>
           </div>
         </div>
       </div>
