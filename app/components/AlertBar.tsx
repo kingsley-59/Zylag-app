@@ -1,11 +1,16 @@
 'use client';
 import SuccessIcon from '../icons/SuccessIcon'
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setErrorMsg, setSuccessMsg } from '../redux/features/alertSlice';
+import { reset, setErrorMsg, setSuccessMsg } from '../redux/features/alertSlice';
+import { useEffect } from 'react';
 
 export default function AlertBar() {
     const { errorMsg, successMsg } = useAppSelector(state => state.alertReducer)
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        setTimeout(() => dispatch(reset()), 3000);
+    }, [errorMsg, successMsg])
 
     return (
         <div className='w-full'>
