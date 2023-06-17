@@ -4,17 +4,13 @@ import { FastAverageColor } from "fast-average-color";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 
-type Advert = {
-    title: string;
-    description: string;
-    image: string;
-    photos: string[];
+type Feedback = {
     [key: string]: any;
 };
-type TAdverts = Advert[];
+type TFeedback = Feedback[];
 
 
-function AdvertCard({ ad }: { ad: Advert }) {
+function AdvertCard({ ad }: { ad: Feedback }) {
     const [bgColor, setBgColor] = useState('#f5f5f5');
     const [isDark, setIsDark] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
@@ -61,47 +57,17 @@ function AdvertCard({ ad }: { ad: Advert }) {
 }
 
 
-const SampleAds = [
-    {
-        title: "baby Food",
-        description: "This product is exceptionally beneficial and promotes the well-being of children. Its remarkable qualities contribute to their overall health and development.",
-        image: "/images/dog-food.png",
-        photos: [""],
-        isActive: true
-    },
-    {
-        title: "Game Controller",
-        description: "This product is exceptionally beneficial and promotes the well-being of children. Its remarkable qualities contribute to their overall health and development.",
-        image: "/images/gamepad-g92.png",
-        photos: [""],
-        isActive: true
-    },
-    // {
-    //     title: "baby Food",
-    //     description: "This product is exceptionally beneficial and promotes the well-being of children. Its remarkable qualities contribute to their overall health and development.",
-    //     image: "/images/dog-food.png",
-    //     photos: [""],
-    //     isActive: false
-    // },
-    // {
-    //     title: "Game Controller",
-    //     description: "This product is exceptionally beneficial and promotes the well-being of children. Its remarkable qualities contribute to their overall health and development.",
-    //     image: "/images/gamepad-g92.png",
-    //     photos: [""],
-    //     isActive: false
-    // },
-]
+const SampleAds = []
 
 
 export default function page() {
     // States
     const [currentTab, setCurrentTab] = useState<"ACTIVE" | "INACTIVE">("ACTIVE");
-    const [activeAds, setActiveAds] = useState<TAdverts>([]);
-    const [inactiveAds, setInactiveAds] = useState<TAdverts>([]);
+    const [activeFeedback, setActiveFeedback] = useState<TFeedback>([]);
+    const [inactiveFeedback, setInactiveFeedback] = useState<TFeedback>([]);
 
     useEffect(() => {
-        setActiveAds(SampleAds.filter(({isActive}) => isActive === true));
-        setInactiveAds(SampleAds.filter(({isActive}) => isActive === false));
+        
     }, [])
 
     return (
@@ -116,7 +82,7 @@ export default function page() {
             </div>
             <hr className="border-t border-dashed border-[#ececec]" />
             <div className="w-full p-5 lg:p-10">
-                {(currentTab === 'ACTIVE' ? activeAds : inactiveAds).length === 0 ? (
+                {(currentTab === 'ACTIVE' ? activeFeedback : inactiveFeedback).length === 0 ? (
                     <div className="w-full center">
                         <div className="col-center gap-5 mx-auto">
                             <img src="/empty.png" alt="no adverts" className="max-h-[300px]" />
@@ -125,10 +91,10 @@ export default function page() {
                     </div>
                 ) : (
                     <div className="w-full">
-                        {(currentTab === 'ACTIVE' ? activeAds : inactiveAds).map((ad, idx) => (
+                        {(currentTab === 'ACTIVE' ? activeFeedback : inactiveFeedback).map((ad, idx) => (
                             <div className="w-full">
                                 <AdvertCard key={idx} ad={ad} />
-                                {activeAds.length !== (idx + 1) && <hr className="border-t border-dashed border-[#b4b4b4]" />}
+                                {activeFeedback.length !== (idx + 1) && <hr className="border-t border-dashed border-[#b4b4b4]" />}
                             </div>
                         ))}
                     </div>
