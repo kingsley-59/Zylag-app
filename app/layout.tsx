@@ -41,9 +41,7 @@ export default function RootLayout({
                 <div className=''>
                   <HeartIcon />
                 </div>
-                <div className="">
-                  <ProfileAvatar />
-                </div>
+                <ProfileAvatar />
                 <div className='md:hidden'><MobileNav /></div>
               </div>
             </div>

@@ -73,7 +73,7 @@ export default function page() {
     return (
         <div className="w-full shadow rounded-xl">
             <div className="w-full rounded-t-xl px-3 py-4 between">
-                <div className="font-bold">My Adverts</div>
+                <div className="font-bold">Feedback </div>
                 <div className="flex items-center rounded bg-gray-50 text-gray-400 font-semibold border-[1px]">
                     <div onClick={() => setCurrentTab('ACTIVE')} className={("cursor-pointer border-b-[2px] text-center p-3 ") + ((currentTab === "ACTIVE") ? "text-red-700 border-b-red-700" : "")}>ACTIVE</div>
                     <hr className="border-r-[1px] h-12" />
