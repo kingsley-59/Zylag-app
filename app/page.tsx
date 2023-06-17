@@ -238,31 +238,36 @@ export default function Home() {
 
   return (
     <div className='w-full flex flex-col gap-5 md:gap-8 lg:gap-12 2xl:max-w-[1500px] pb-5 px-5 md:px-10 lg:px-20 text-sm'>
-      <div className="w-full flex items-start">
-        <div className="basis-1/4 hidden lg:block border-r-[1px] border-r-neutral-200 pt-4">
-          <div className="flex flex-col items-start gap-4">
-            {mainCategories.map((val, idx) => (
-              <span key={idx}>{val}</span>
-            ))}
+      <div className="w-full">
+        <div className="w-full flex items-start">
+          <div className="basis-1/4 hidden lg:block border-r-[1px] border-r-neutral-200 pt-4">
+            <div className="flex flex-col items-start gap-4">
+              {mainCategories.map((val, idx) => (
+                <span key={idx}>{val}</span>
+              ))}
+            </div>
+          </div>
+          <div className='flex-grow p-5'>
+            <div className="rounded-2xl relative flex bg-red-900 min-h-[250px]">
+              <div className="basis-1/2 flex flex-col items-start justify-center gap-5 min-h-full rounded-l-2xl p-5 lg:p-10 text-neutral-100">
+                <div className='start gap-3'>
+                  <img src="/images/apple-logo.png" alt="apple logo" />
+                  <span className='text-base'>iPhone 14 series</span>
+                </div>
+                <div className="font-bold text-3xl md:text-4xl lg:text-5xl">Up to 10% off Voucher</div>
+                <div className="start gap-3 cursor-pointer">
+                  <span className='underline underline-offset-8 text-base'>Shop now</span>
+                  <ArrowRight color='white' />
+                </div>
+              </div>
+              <div className='basis-1/2 bg-black min-h-full rounded-r-2xl text-neutral-100'>
+                <img className='rounded-r-2xl' src="/images/iphone-black-bg.png" alt="iphone picture" />
+              </div>
+            </div>
           </div>
         </div>
-        <div className='flex-grow p-5'>
-          <div className="rounded-2xl relative flex bg-red-900 min-h-[250px]">
-            <div className="basis-1/2 flex flex-col items-start justify-center gap-5 min-h-full rounded-l-2xl p-5 lg:p-10 text-neutral-100">
-              <div className='start gap-3'>
-                <img src="/images/apple-logo.png" alt="apple logo" />
-                <span className='text-base'>iPhone 14 series</span>
-              </div>
-              <div className="font-bold text-3xl md:text-4xl lg:text-5xl">Up to 10% off Voucher</div>
-              <div className="start gap-3 cursor-pointer">
-                <span className='underline underline-offset-8 text-base'>Shop now</span>
-                <ArrowRight color='white' />
-              </div>
-            </div>
-            <div className='basis-1/2 bg-black min-h-full rounded-r-2xl text-neutral-100'>
-              <img className='rounded-r-2xl' src="/images/iphone-black-bg.png" alt="iphone picture" />
-            </div>
-          </div>
+        <div className="w-full py-5">
+          <Link href={'/login'} ><button className="bg-red-500 text-white px-5 py-3 rounded">Post Ads</button></Link>
         </div>
       </div>
 
