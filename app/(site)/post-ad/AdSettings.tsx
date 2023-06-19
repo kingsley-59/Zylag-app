@@ -176,12 +176,14 @@ const ImageUploader = () => {
     };
 
     const handleFileInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        const files = Array.from(e.target.files);
-        const validFiles = files.filter(
-            (file) => file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png'
-        );
+        if (e.target.files) {
+            const files = Array.from(e.target.files);
+            const validFiles = files.filter(
+                (file) => file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png'
+            );
 
-        setSelectedImages((prevImages) => [...prevImages, ...validFiles]);
+            setSelectedImages((prevImages) => [...prevImages, ...validFiles]);
+        }
     };
 
     const handleRemoveImage = (index: number) => {
