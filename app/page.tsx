@@ -267,7 +267,7 @@ export default function Home() {
           </div>
         </div>
         <div className="w-full py-5">
-          <Link href={'/login'} ><button className="bg-red-500 text-white px-5 py-3 rounded">Post Ads</button></Link>
+          <Link href={'/post-ad'} ><button className="bg-red-500 text-white px-5 py-3 rounded">Post Ads</button></Link>
         </div>
       </div>
 

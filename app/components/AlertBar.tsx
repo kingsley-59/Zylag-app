@@ -5,7 +5,7 @@ import { reset, setErrorMsg, setSuccessMsg } from '../redux/features/alertSlice'
 import { useEffect } from 'react';
 
 export default function AlertBar() {
-    const { errorMsg, successMsg } = useAppSelector(state => state.alertReducer)
+    const { errorMsg, successMsg } = useAppSelector(state => state.alert)
     const dispatch = useAppDispatch();
 
     useEffect(() => {

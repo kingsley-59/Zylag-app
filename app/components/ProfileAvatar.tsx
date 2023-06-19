@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import BagIcon from "../icons/BagIcon";
-import CancelIcon from "../icons/CancelIcon";
+import CancelIcon from "../icons/SettingsIcon";
 import LogoutIcon from "../icons/LogoutIcon";
 import StarIcon from "../icons/StarIcon";
 import AccountIcon from "../icons/AccountIcon";
