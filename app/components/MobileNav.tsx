@@ -49,23 +49,23 @@ export default function MobileNav() {
                             </button>
                             <ul>
                                 <li>
-                                    <a href="#" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
+                                    <a href="/" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
                                         Home
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
+                                    <a href="/contact" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
+                                        Contact
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/about" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
                                         About
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
-                                        Services
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
-                                        Contact
+                                    <a href="/signup" className="block py-2 px-4 text-gray-800 hover:bg-gray-200">
+                                        Signup
                                     </a>
                                 </li>
                             </ul>
