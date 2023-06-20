@@ -9,7 +9,7 @@ export enum Condition {
 export type NewAdState = typeof initialState;
 
 const initialState = {
-    currentStep: 1 as 1 | 2 | 3,
+    currentStep: 1 as 1 | 2 | 3 | number,
     title: '',
     description: '',
     category: '',
@@ -31,8 +31,19 @@ export const advert = createSlice({
         updateCurrentStep: (state, action: PayloadAction<1 | 2 | 3>) => {
             state.currentStep = action.payload;
         },
+        prev: (state) => {
+            if (state.currentStep > 1) {
+                state.currentStep = state.currentStep - 1;
+            }
+        },
         setAdTitle: (state, action: PayloadAction<string>) => {
             state.title = action.payload;
+        },
+        setAdCondition: (state, action) => {
+            state.condition = action.payload;
+        },
+        setAdDescription: (state, action) => {
+            state.description = action.payload;
         },
         setAdCategory: (state, action: PayloadAction<string>) => {
             state.category = action.payload;
@@ -51,14 +62,19 @@ export const advert = createSlice({
         },
         resetPromoOption: (state, action) => {
             state.promoOption = {}
+        },
+        setAdProperty: <K extends keyof typeof initialState>(state: typeof initialState, action: PayloadAction<{key: K; value: typeof initialState[K]}>) => {
+            const { key, value } = action.payload;
+            state[key] = value;
         }
     }
 });
 
 export const {
-    reset, updateCurrentStep,
+    reset, updateCurrentStep, prev, resetPromoOption,
     setAdTitle, setAdCategory, setAdSubcategory, setAdPrice,
-    setAdPromoCategory, setAdPromoOption
+    setAdPromoCategory, setAdPromoOption, setAdCondition,
+    setAdProperty
 } = advert.actions;
 
 export default advert.reducer

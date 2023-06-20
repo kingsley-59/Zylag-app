@@ -1,5 +1,5 @@
 
-import { Condition, setAdPrice, setAdPromoCategory, setAdPromoOption } from "@/app/redux/features/newAdSlice"
+import { Condition, setAdCondition, setAdPrice, setAdPromoCategory, setAdPromoOption, setAdProperty, setAdTitle } from "@/app/redux/features/newAdSlice"
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { ChangeEvent, ChangeEventHandler, DragEvent, FC, useState } from "react";
 
@@ -196,7 +196,7 @@ const ImageUploader = () => {
     };
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" onDrop={e => handleDrop(e)} onDragOver={(e) => e.preventDefault()}>
+        <div className="w-full grid grid-flow-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" onDrop={e => handleDrop(e)} onDragOver={(e) => e.preventDefault()}>
             <label htmlFor="ad-photos"
                 className="bg-red-200 bg-opacity-40 rounded-xl w-[140px] aspect-square center"
             >
@@ -206,8 +206,8 @@ const ImageUploader = () => {
                 onChange={handleFileInputChange}
             />
             {selectedImages.map((image, index) => (
-                <div key={index} className="relative aspect-square">
-                    <img src={URL.createObjectURL(image)} alt={`Image ${index}`} className="w-full h-auto" />
+                <div key={index} className="relative w-[140px] aspect-square">
+                    <img src={URL.createObjectURL(image)} alt={`Image ${index}`} className="w-full h-full object-center object-cover" />
                     <button
                         className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
                         onClick={() => handleRemoveImage(index)}
@@ -252,19 +252,21 @@ function SettingsCard({ title, children }: { title: string, children: any }) {
 }
 
 export default function AdSettings() {
+    const { title, condition, description } = useAppSelector(state => state.newAd);
+    const dispatch = useAppDispatch();
 
     return (
-        <div className="w-full p-5 lg:p-10 mb-7 flex flex-col justify-start items-center gap-10">
+        <div className="w-full md:p-5 lg:p-10 mb-7 flex flex-col justify-start items-center gap-10">
             <SettingsCard title="Add Details">
                 <div className="w-full px-5">
-                    <div className="w-full center gap-4 mb-6">
+                    <div className="w-full col-center md:center gap-4 mb-6">
                         <div className="form-group flex-grow">
                             <label><ListTitle title="Title" /></label>
-                            <input type="text" className="form-input" placeholder="Title" />
+                            <input type="text" className="form-input" value={title} onChange={(e) => dispatch(setAdTitle(e.target.value))} placeholder="Title" />
                         </div>
                         <div className="form-group flex-grow">
                             <label><ListTitle title="Title" /></label>
-                            <select className="form-input">
+                            <select value={condition} onChange={e => dispatch(setAdCondition(e.target.value as Condition))} className="form-input">
                                 <option value={Condition.NEW}>New</option>
                                 <option value={Condition.USED}>Used</option>
                             </select>
@@ -272,7 +274,7 @@ export default function AdSettings() {
                     </div>
                     <div className="form-group mb-6">
                         <label><ListTitle title="Description" /></label>
-                        <textarea rows={5} className="form-input"></textarea>
+                        <textarea rows={5} className="form-input" value={description} onChange={e => dispatch(setAdProperty({key: 'description', value: e.target.value}))}></textarea>
                     </div>
                     <div className="form-group">
                         <label><ListTitle title="Tags" /></label>
@@ -298,7 +300,7 @@ export default function AdSettings() {
             </SettingsCard>
 
             <SettingsCard title="Price">
-                <div className="center gap-3 py-3">
+                <div className="flex justify-center items-start gap-3 py-3">
                     <div className="">Price: </div>
                     <div className="">
                         <AdPriceInput />
@@ -322,6 +324,7 @@ export default function AdSettings() {
             <SettingsCard title="Promote your ad">
                 <div className="col-center max-w-[400px] mx-auto gap-3">
                     <PromotionOptions />
+                    <button className="w-full p-3 my-5 bg-red-700 text-white rounded">Post advert</button>
                 </div>
             </SettingsCard>
         </div>
