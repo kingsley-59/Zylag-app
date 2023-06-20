@@ -11,20 +11,10 @@ import TwitterIcon from "@/app/icons/TwitterIcon";
 import InstagramIcon from "@/app/icons/InstagramIcon";
 import LinkedinIcon from "@/app/icons/LinkedinIcon";
 import { useEffect, useState } from "react";
+import BreadCrumb from "@/app/components/BreadCrumb";
 
 
-export function BreadCrumb({ paths }: { paths: string[] }) {
-    return (
-        <div className="w-full start gap-3 px-5 md:px-10 lg:px-20 py-5">
-            {paths.map((path, idx) => (
-                <>
-                    <span className={`${((idx + 1) === paths.length) ? 'text-gray-600' : 'text-gray-400'}`}>{path}</span>
-                    {((idx + 1) !== paths.length) && <span className="text-gray-400">/</span>}
-                </>
-            ))}
-        </div>
-    )
-}
+
 
 export default function page() {
     const [sellingPoints, setSellingPoints] = useState<any[]>([]);
