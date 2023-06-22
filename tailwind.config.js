@@ -34,6 +34,12 @@ module.exports = {
           600: '#b71f3b',
           700: '#780000'
         },
+        'orange': {
+          50: '#FEF5EA',
+          100: '#FFF2E2',
+          200: '#FFEAD1',
+          300: '#FFCC91',
+        },
         'dark-red': '#780000',
         'success': '#10b981',
         'warning': '#f59e0b',
