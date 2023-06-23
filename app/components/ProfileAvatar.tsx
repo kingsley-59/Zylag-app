@@ -51,7 +51,7 @@ export default function ProfileAvatar() {
             <div className="absolute top-full right-0 p-3 z-40" style={{ display: show ? 'block' : 'none' }}>
                 <div className="w-full bg-purple-800 bg-opacity-30 backdrop-blur-[75px] col-start text-white whitespace-nowrap font-light rounded-lg py-3 px-2">
                     {menu.map((item, idx) => (
-                        <Link href={item.href} onClick={() => setShow(prev => !prev)} className="block w-full hover:backdrop-blur-3xl rounded-md">
+                        <Link key={idx} href={item.href} onClick={() => setShow(prev => !prev)} className="block w-full hover:backdrop-blur-3xl rounded-md">
                             <span className='w-full cursor-pointer px-4 py-2 start gap-3'>
                                 <span className="basis-1/4">{item.icon}</span>
                                 {item.name}
