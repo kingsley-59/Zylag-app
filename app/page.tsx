@@ -9,23 +9,20 @@ import BestSellingSection from './sections/BestSellingSection';
 import TitleBlock from './components/TitleBlock';
 import SubTitle from './components/SubTitle';
 import CategoriesSection from './sections/CategoriesSection';
-import { axiosInstance } from './config';
 
 
 type PageData = {
   flashSales: any[];
-  bestSelling: any[];
+  bestSelling: any[]; 
   mainCategories: any[];
   categories: any[];
   products: any[];
 };
 
 async function getData(): Promise<PageData> {
-  const { data, status } = await axiosInstance.get('/api');
+  const res = await import('./api/route');
 
-  if (status !== 200) {
-    throw new Error('Failed to fetch data');
-  }
+  const data = await (await res.GET()).json()
 
   return data;
 }
@@ -103,7 +100,7 @@ export default async function Home() {
       </div>
 
       {/* Our products section */}
-      <ProductsSection products={products} />
+      <ProductsSection products={products}/>
 
       {/* Featured: New arrival */}
       <div className="w-full flex flex-col gap-4 lg:gap-8">
