@@ -44,6 +44,15 @@ body {
   .col-start {
     @apply flex flex-col justify-start items-start;
   }
+  .col-center {
+    @apply flex flex-col justify-center items-center
+  }
+  .col-justify-start-items-center {
+    @apply flex flex-col justify-start items-center
+  }
+  .col-justify-center-items-start {
+    @apply flex flex-col justify-center items-start
+  }
   .between {
     @apply flex justify-between items-center;
   }

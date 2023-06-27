@@ -54,7 +54,7 @@ export default function RootLayout({
             {children}
           </section>
 
-          <footer className='bg-red-600 w-full p-5 pb-3'>
+          <footer className='bg-red-700 w-full p-5 pb-3'>
             <div className="flex justify-start lg:justify-center items-start flex-wrap gap-5 lg:gap-10 xl:gap-20 p-10 pb-20 text-red-50">
 
               <div className="flex flex-col gap-3 ">
@@ -99,8 +99,12 @@ export default function RootLayout({
                   <div className="grid grid-cols-2">
                     <div><img src="/Qr Code.png" alt="qrcode to download app" /></div>
                     <div className='grid grid-rows-2 gap-2'>
-                      <button className='bg-black text-white'>Google play</button>
-                      <button className='bg-black text-white'>App Store</button>
+                      <div className='bg-black text-white'>
+                        <img src="/images/download-playstore.png" alt="Get it on app store" />
+                      </div>
+                      <div className='bg-black text-white'>
+                        <img src="/images/download-appstore.png" alt="Get it on app store" />
+                      </div>
                     </div>
                   </div>
                 </div>

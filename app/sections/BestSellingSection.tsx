@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import TitleBlock from '../components/TitleBlock'
 import SubTitle from '../components/SubTitle'
 import Slider, { Settings } from 'react-slick'
-import BestSellingCard from '../components/BestSellingCard'
+import ProductCard from '../components/ProductCard';
 
 export default function BestSellingSection({bestSelling}: {bestSelling: any[]}) {
     const slider11 = useRef<any>(null);
@@ -61,7 +61,7 @@ export default function BestSellingSection({bestSelling}: {bestSelling: any[]}) 
                 <div className="">
                     <Slider ref={slider11} className='mb-5 lg:mb-8' {...settings11}>
                         {bestSelling.map((v, idx) => (
-                            <BestSellingCard v={v} key={idx} />
+                            <ProductCard v={v} key={idx} />
                         ))}
                     </Slider>
                 </div>

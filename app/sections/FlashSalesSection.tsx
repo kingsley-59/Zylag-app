@@ -1,12 +1,12 @@
 "use client";
 import Slider, { Settings } from "react-slick";
-import FlashSaleCard from "../components/FlashSaleCard";
 import SubTitle from "../components/SubTitle";
 import TitleBlock from "../components/TitleBlock";
 import { useRef } from "react";
 import Link from "next/link";
 import ArrowLeft from "../icons/ArrowLeft";
 import ArrowRight from "../icons/ArrowRight";
+import ProductCard from "../components/ProductCard";
 
 
 type FlashSalesSectionProps = {
@@ -72,7 +72,7 @@ export default function FlashSalesSection({flashSales}: FlashSalesSectionProps) 
                 <div className="">
                     <Slider ref={slider11} className='mb-5 lg:mb-8' {...settings11}>
                         {flashSales.map((v, idx) => (
-                            <FlashSaleCard v={v} key={idx} />
+                            <ProductCard v={v} key={idx} />
                         ))}
                     </Slider>
                     <div className="w-full flex justify-center items-center">
