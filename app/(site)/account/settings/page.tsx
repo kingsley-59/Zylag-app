@@ -16,13 +16,13 @@ function CardTitle({ title, isSaved }: { title: string, isSaved: boolean }) {
   )
 }
 
-function SaveButton({text, onClick}: {text?: string, onClick?: () => void}) {
+function SaveButton({ text, onClick }: { text?: string, onClick?: () => void }) {
   return (
     <button type="submit" className="w-full text-white bg-red-700 py-4 rounded-md">{text || 'Save'}</button>
   )
 }
 
-function FormContainer({children}: {children: any}) {
+function FormContainer({ children }: { children: any }) {
   return (
     <div className="max-w-[400px] col-center gap-5 lg:gap-7 mx-auto">
       {children}

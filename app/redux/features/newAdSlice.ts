@@ -8,12 +8,20 @@ export enum Condition {
 
 export type NewAdState = typeof initialState;
 
+export type Category = {
+    _id: string,
+    name: string,
+    level?: number,
+    parent?: string,
+    subCategories?: Category[];
+} | null
+
 const initialState = {
     currentStep: 1 as 1 | 2 | 3 | number,
     title: '',
     description: '',
-    category: '',
-    subCategory: '',
+    category: null as Category,
+    subCategory: null as Category,
     condition: Condition.NEW,
     tags: [] as string[],
     photos: [] as string[],
@@ -45,10 +53,10 @@ export const advert = createSlice({
         setAdDescription: (state, action) => {
             state.description = action.payload;
         },
-        setAdCategory: (state, action: PayloadAction<string>) => {
+        setAdCategory: (state, action: PayloadAction<Category>) => {
             state.category = action.payload;
         },
-        setAdSubcategory: (state, action: PayloadAction<string>) => {
+        setAdSubcategory: (state, action: PayloadAction<Category>) => {
             state.subCategory = action.payload;
         },
         setAdPrice: (state, action: PayloadAction<number | 'free' | 'negotiable'>) => {

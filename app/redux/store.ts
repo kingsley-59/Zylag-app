@@ -3,6 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import counter from './features/counterSlice';
 import alert from './features/alertSlice';
 import newAd from './features/newAdSlice';
+import auth from './features/authSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 
@@ -10,12 +11,14 @@ import thunk from 'redux-thunk';
 const persistConfig = {
     key: 'root',
     storage,
+    whitelist: ['newAd', 'auth']
 }
 
 const combinedReducer = combineReducers({
     counter, 
     alert,
-    newAd
+    newAd,
+    auth
 });
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 

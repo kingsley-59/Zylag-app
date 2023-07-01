@@ -54,6 +54,6 @@ body {
     @apply w-full flex flex-col items-start gap-3;
   }
   .form-input {
-    @apply w-full py-3 px-3 bg-gray-100 text-gray-500 placeholder:text-gray-300 rounded-lg outline-none hover:outline-none hover:border-gray-400;
+    @apply w-full py-3 px-3 text-gray-500 placeholder:text-gray-300 rounded-lg outline-none hover:outline-none border border-[#CBCBCB];
   }
 }

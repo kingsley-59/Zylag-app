@@ -259,13 +259,13 @@ export default function AdSettings() {
         <div className="w-full md:p-5 lg:p-10 mb-7 flex flex-col justify-start items-center gap-10">
             <SettingsCard title="Add Details">
                 <div className="w-full px-5">
-                    <div className="w-full col-center md:center gap-4 mb-6">
+                    <div className="w-full col-center md:flex-row md:center gap-4 mb-6">
                         <div className="form-group flex-grow">
                             <label><ListTitle title="Title" /></label>
                             <input type="text" className="form-input" value={title} onChange={(e) => dispatch(setAdTitle(e.target.value))} placeholder="Title" />
                         </div>
                         <div className="form-group flex-grow">
-                            <label><ListTitle title="Title" /></label>
+                            <label><ListTitle title="Condition" /></label>
                             <select value={condition} onChange={e => dispatch(setAdCondition(e.target.value as Condition))} className="form-input">
                                 <option value={Condition.NEW}>New</option>
                                 <option value={Condition.USED}>Used</option>
@@ -274,7 +274,7 @@ export default function AdSettings() {
                     </div>
                     <div className="form-group mb-6">
                         <label><ListTitle title="Description" /></label>
-                        <textarea rows={5} className="form-input" value={description} onChange={e => dispatch(setAdProperty({key: 'description', value: e.target.value}))}></textarea>
+                        <textarea rows={5} className="form-input bg-[#F5F5F5]" value={description} onChange={e => dispatch(setAdProperty({key: 'description', value: e.target.value}))}></textarea>
                     </div>
                     <div className="form-group">
                         <label><ListTitle title="Tags" /></label>
@@ -316,7 +316,7 @@ export default function AdSettings() {
                     </div>
                     <div className="form-group">
                         <label><ListTitle title="Email" /></label>
-                        <input type="email" className="form-input" placeholder="kingsleyakahibe@gmail.com" />
+                        <input type="email" className="form-input bg-[#EBEBEB]" placeholder="kingsleyakahibe@gmail.com" />
                     </div>
                 </div>
             </SettingsCard>

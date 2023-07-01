@@ -4,7 +4,8 @@ export type AlertState = typeof initialState;
 
 const initialState = {
     successMsg: '',
-    errorMsg: ''
+    errorMsg: '',
+    timer: 5
 };
 
 export const alert = createSlice({
@@ -12,18 +13,28 @@ export const alert = createSlice({
     initialState,
     reducers: {
         reset: () => initialState,
-        setSuccessMsg: (state, action: PayloadAction<string>) => {
-            state.successMsg = action.payload;
+        setSuccessMsg: (state, action: PayloadAction<string | { text: string, timer: number }>) => {
+            if (typeof action.payload === 'string') {
+                state.successMsg = action.payload;
+            } else {
+                state.successMsg = action.payload.text;
+                state.timer = action.payload.timer;
+            }
         },
-        setErrorMsg: (state, action: PayloadAction<string>) => {
-            state.errorMsg = action.payload;
+        setErrorMsg: (state, action: PayloadAction<string | { text: string, timer: number }>) => {
+            if (typeof action.payload === 'string') {
+                state.errorMsg = action.payload;
+            } else {
+                state.errorMsg = action.payload.text;
+                state.timer = action.payload.timer;
+            }
         },
     }
 });
 
 export const {
-    reset, 
-    setErrorMsg, 
+    reset,
+    setErrorMsg,
     setSuccessMsg
 } = alert.actions;
 

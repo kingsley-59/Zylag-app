@@ -4,12 +4,13 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { reset, setErrorMsg, setSuccessMsg } from '../redux/features/alertSlice';
 import { useEffect } from 'react';
 
+
 export default function AlertBar() {
     const { errorMsg, successMsg } = useAppSelector(state => state.alert)
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        setTimeout(() => dispatch(reset()), 3000);
+        setTimeout(() => dispatch(reset()), 5000);
     }, [errorMsg, successMsg])
 
     return (

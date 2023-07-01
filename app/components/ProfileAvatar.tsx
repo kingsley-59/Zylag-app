@@ -7,6 +7,7 @@ import LogoutIcon from "../icons/LogoutIcon";
 import StarIcon from "../icons/StarIcon";
 import AccountIcon from "../icons/AccountIcon";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 
 export default function ProfileAvatar() {
@@ -36,7 +37,7 @@ export default function ProfileAvatar() {
         {
             name: 'Logout',
             icon: <LogoutIcon />,
-            href: '/'
+            href: ''
         },
     ]
 
@@ -52,8 +53,13 @@ export default function ProfileAvatar() {
                 <div className="w-full bg-purple-800 bg-opacity-30 backdrop-blur-[75px] col-start text-white whitespace-nowrap font-light rounded-lg py-3 px-2">
                     {menu.map((item, idx) => (
                         <Link key={idx} href={item.href} onClick={() => setShow(prev => !prev)} className="block w-full hover:backdrop-blur-3xl rounded-md">
-                            <span className='w-full cursor-pointer px-4 py-2 start gap-3'>
-                                <span className="basis-1/4">{item.icon}</span>
+                            <span className='w-full cursor-pointer px-4 py-2 start gap-3'
+                            onClick={() => {
+                                if (item.name === 'Layout') {
+                                    redirect('/api/logout');
+                                }
+                            }}>
+                                <span className="basis-1/4 stroke-white">{item.icon}</span>
                                 {item.name}
                             </span>
                         </Link>

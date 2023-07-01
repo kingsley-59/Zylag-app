@@ -1,8 +1,8 @@
 'use client'
 import { axiosInstance } from "@/app/config";
 import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
-import { reset } from "@/app/redux/features/alertSlice";
 import { useAppDispatch } from "@/app/redux/hooks";
+import axios from "axios";
 import Link from "next/link";
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from "react";
@@ -22,7 +22,7 @@ export default function page() {
         setLoading(true)
 
         try {
-            const { data, status } = await axiosInstance.post('/auth/login', { email, password});
+            const { data, status } = await axios.post('/api/auth', { email, password });
             if (status >= 400) {
                 dispatch(setErrorMsg(data?.error));
                 return;
@@ -30,7 +30,14 @@ export default function page() {
             dispatch(setSuccessMsg(data?.message));
             setEmail('')
             setPassword('')
-            setTimeout(() => router.push('/account/settings'), 3000);
+            setTimeout(() => {
+                let referrer = searchParams.get('ref')
+                if (referrer) {
+                    router.push(referrer);
+                } else {
+                    router.push('/account/settings')
+                }
+            }, 3000);
         } catch (error: any) {
             dispatch(setErrorMsg("Something went wrong"));
             console.log(error)
