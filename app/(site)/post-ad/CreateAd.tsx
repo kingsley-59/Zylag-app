@@ -27,7 +27,7 @@ export default function CreateAd() {
     useEffect(() => {
         if (!categories.length) {
             axiosInstance.get('/ads/category/all')
-                .then(({ data }) => setCategories(data.data as Category[]))
+                .then(({ data }) => setCategories(data.data?.categories as Category[]))
                 .catch(error => {
                     console.log(error);
                     dispatch(setErrorMsg('Failed to load categories. Pls refresh...'))
