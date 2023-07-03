@@ -1,16 +1,24 @@
 'use client'
 import { axiosInstance } from "@/app/config";
 import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
-import { useAppDispatch } from "@/app/redux/hooks";
+import { setAuthState } from "@/app/redux/features/authSlice";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import axios from "axios";
+import { Metadata } from "next";
 import Link from "next/link";
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from "react";
 
 
+export const metadata: Metadata = {
+    title: 'Login | Zylag Ecomm.'
+}
+
+
 export default function page() {
     const searchParams = useSearchParams()
     const router = useRouter()
+    // const { token } = useAppSelector(state => state.auth);
     const dispatch = useAppDispatch()
 
     const [email, setEmail] = useState<string>('');
@@ -22,14 +30,14 @@ export default function page() {
         setLoading(true)
 
         try {
-            const { data, status } = await axios.post('/api/auth', { email, password });
-            if (status >= 400) {
-                dispatch(setErrorMsg(data?.error));
-                return;
-            }
+            const { data, status } = await axiosInstance.post('/auth/login', { email, password });
+            if (status >= 400) return dispatch(setErrorMsg(data?.error));
+
+            const { _id, email: userEmail, emailIsVerified, fullname, role, token} = data.data;
             dispatch(setSuccessMsg(data?.message));
-            setEmail('')
-            setPassword('')
+            setEmail(''); setPassword('');
+            dispatch(setAuthState({_id, email: userEmail, emailIsVerified, fullname, isLoggedIn: true, role, token}));
+
             setTimeout(() => {
                 let referrer = searchParams.get('ref')
                 if (referrer) {

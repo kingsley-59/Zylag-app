@@ -1,11 +1,11 @@
 'use client';
 import { axiosInstance } from "@/app/config";
 import { setErrorMsg } from "@/app/redux/features/alertSlice";
+import { setAuthState } from "@/app/redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
-import axios from "axios";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 
 export default function LayoutTabs() {
@@ -20,8 +20,8 @@ export default function LayoutTabs() {
         { name: "Feedback", path: "/account/feedback", },
     ]
 
-    useEffect(() => {
-        axios.get('/api/auth')
+    const validate = useCallback(() => {
+        axiosInstance.get('/user/me', { headers: { Authorization: 'Bearer '+ token } })
             .then(({ data, status }) => {
                 if (status >= 400) {
                     dispatch(setErrorMsg(data.message));
@@ -33,6 +33,10 @@ export default function LayoutTabs() {
                 router.push('/login');
             })
     }, [])
+
+    useEffect(() => {
+        validate();
+    }, []);
 
     return (
         <div className="w-full lg:w-1/2 flex justify-start lg:justify-stretch items-center gap-3">
