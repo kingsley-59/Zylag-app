@@ -24,11 +24,15 @@ const initialState = {
     subCategory: null as Category,
     condition: Condition.NEW,
     tags: [] as string[],
-    photos: [] as string[],
+    photos: [] as File[],
+    video: '',
     price: 0 as number | 'free' | 'negotiable',
     phoneNumber: '',
-    promoCategory: '' as number | string,
-    promoOption: {} as {duration?: number | string, price?: number}
+    address: '',
+    latitude: '' as number | string,
+    longitude: '' as number | string,
+    promoCategory: '' as string,
+    promoOption: {} as {category?: string, duration?: number, price?: number, _id?: string}
 };
 
 export const advert = createSlice({
@@ -53,6 +57,9 @@ export const advert = createSlice({
         setAdDescription: (state, action) => {
             state.description = action.payload;
         },
+        updateAdPhotos: (state, action: PayloadAction<File[]>) => {
+            state.photos = [...state.photos, ...action.payload];
+        },
         setAdCategory: (state, action: PayloadAction<Category>) => {
             state.category = action.payload;
         },
@@ -62,7 +69,7 @@ export const advert = createSlice({
         setAdPrice: (state, action: PayloadAction<number | 'free' | 'negotiable'>) => {
             state.price = action.payload;
         },
-        setAdPromoCategory: (state, action: PayloadAction<number | string>) => {
+        setAdPromoCategory: (state, action: PayloadAction<string>) => {
             state.promoCategory = action.payload;
         },
         setAdPromoOption: (state, action: PayloadAction<any>) => {
@@ -82,7 +89,7 @@ export const {
     reset, updateCurrentStep, prev, resetPromoOption,
     setAdTitle, setAdCategory, setAdSubcategory, setAdPrice,
     setAdPromoCategory, setAdPromoOption, setAdCondition,
-    setAdProperty
+    setAdProperty, updateAdPhotos,
 } = advert.actions;
 
 export default advert.reducer
