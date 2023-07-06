@@ -8,19 +8,21 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 
-const persistConfig = {
-    key: 'root',
-    storage,
-    whitelist: ['newAd', 'auth']
-}
+const newAdReducer = persistReducer({
+    storage, key: 'newAd', blacklist: ['photos']
+}, newAd)
 
 const combinedReducer = combineReducers({
     counter, 
     alert,
-    newAd,
+    newAd: newAdReducer,
     auth
 });
-const persistedReducer = persistReducer(persistConfig, combinedReducer);
+const persistedReducer = persistReducer({
+    key: 'root',
+    storage,
+    whitelist: ['auth']
+}, combinedReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,

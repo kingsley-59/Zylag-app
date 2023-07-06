@@ -6,6 +6,8 @@ import ImageUploader from "./ImageUploader";
 import { axiosInstance } from "@/app/config";
 import PromotionOptions, { TPromotionOptions, formatPromoOptions } from "./PromotionOptions";
 import Locations from "./Locations";
+import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
+import { useLoadScript } from "@react-google-maps/api";
 
 
 interface TagInputProps {
@@ -24,14 +26,14 @@ const TagInput: FC<TagInputProps> = ({ maxTags }) => {
     const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputValue.trim() !== '') {
             if (tags.length < maxTags) {
-                dispatch(setAdProperty({key: 'tags', value: [...tags, inputValue]}));
+                dispatch(setAdProperty({ key: 'tags', value: [...tags, inputValue] }));
                 setInputValue('');
             }
         }
     };
 
     const handleTagRemove = (tag: string) => {
-        dispatch(setAdProperty({key: 'tags', value: tags.filter((t) => t !== tag)}))
+        dispatch(setAdProperty({ key: 'tags', value: tags.filter((t) => t !== tag) }))
     };
 
     useEffect(() => console.log(tags), [tags])
@@ -127,16 +129,66 @@ function SettingsCard({ title, children }: { title: string, children: any }) {
 }
 
 export default function AdSettings() {
-    const { title, condition, description } = useAppSelector(state => state.newAd);
+    const newAd = useAppSelector(state => state.newAd);
+    const auth = useAppSelector(state => state.auth);
+    const { title, condition, description } = newAd
     const dispatch = useAppDispatch();
     const [promoOptions, setPromoOptions] = useState<TPromotionOptions>([]);
+    const [submitError, setSubmitError] = useState('');
 
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+        libraries: ['places']
+    });
 
-
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
+        setSubmitError('');
 
+        if (!newAd.latitude || !newAd.longitude) {
+            setSubmitError('Invalid address. Choose from the available options.');
+            return;
+        }
 
+        const formData = new FormData();
+
+        // Append other fields to the form data
+        formData.append('title', newAd.title);
+        formData.append('description', newAd.description);
+        formData.append('category', newAd.category?._id as string);
+        formData.append('subCategory', newAd.subCategory?._id as string);
+        formData.append('video', newAd.video);
+        formData.append('condition', newAd.condition);
+        formData.append('price', newAd.price as string);
+        formData.append('address', newAd.address as string);
+        formData.append('latitude', newAd.latitude as string);
+        formData.append('longitude', newAd.longitude as string);
+
+        // Append each photo to the form data
+        newAd.photos.forEach(photo => {
+            formData.append('photos', photo);
+        });
+        newAd.tags.forEach(tag => {
+            formData.append('tags', tag);
+        });
+        try {
+            const res = await axiosInstance.post('/ads/new', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: 'Bearer ' + auth.token
+                }
+            });
+            console.log(res);
+            if (res.status === 200) {
+                dispatch(setSuccessMsg('Ad created successfully'));
+            } else {
+                setSubmitError(res.data.message);
+            }
+
+        } catch (error) {
+            console.log(error);
+            dispatch(setErrorMsg('Aww..! Something went wrong.'));
+        }
     }
 
     useEffect(() => {
@@ -154,83 +206,82 @@ export default function AdSettings() {
     }, [])
 
     return (
-        <form className="w-full" onSubmit={handleSubmit}>
-            <div className="w-full md:p-5 lg:p-10 mb-7 flex flex-col justify-start items-center gap-10">
-                <SettingsCard title="Add Details">
-                    <div className="w-full px-5">
-                        <div className="w-full col-center md:flex-row md:center gap-4 mb-6">
-                            <div className="form-group flex-grow">
-                                <label><ListTitle title="Title" /></label>
-                                <input type="text" className="form-input" value={title} onChange={(e) => dispatch(setAdTitle(e.target.value))} placeholder="Title" required />
-                            </div>
-                            <div className="form-group flex-grow">
-                                <label><ListTitle title="Condition" /></label>
-                                <select value={condition} onChange={e => dispatch(setAdCondition(e.target.value as Condition))} className="form-input" required>
-                                    <option value={Condition.NEW}>New</option>
-                                    <option value={Condition.USED}>Used</option>
-                                </select>
-                            </div>
+        <div className="w-full md:p-5 lg:p-10 mb-7 flex flex-col justify-start items-center gap-10">
+            <SettingsCard title="Add Details">
+                <div className="w-full px-5">
+                    <div className="w-full col-center md:flex-row md:center gap-4 mb-6">
+                        <div className="form-group flex-grow">
+                            <label><ListTitle title="Title" /></label>
+                            <input type="text" className="form-input" value={title} onChange={(e) => dispatch(setAdTitle(e.target.value))} placeholder="Title" required />
                         </div>
-                        <div className="form-group mb-6">
-                            <label><ListTitle title="Description" /></label>
-                            <textarea rows={5} className="form-input bg-[#F5F5F5]" value={description} onChange={e => dispatch(setAdProperty({ key: 'description', value: e.target.value }))} required></textarea>
-                        </div>
-                        <div className="form-group">
-                            <label><ListTitle title="Tags" /></label>
-                            <p className="text-xs text-gray-300">Increase your ad exposure. Enter up to 5 keywords someone could search to find your ad.</p>
-                            <TagInput maxTags={5} />
+                        <div className="form-group flex-grow">
+                            <label><ListTitle title="Condition" /></label>
+                            <select value={condition} onChange={e => dispatch(setAdCondition(e.target.value as Condition))} className="form-input" required>
+                                <option value={Condition.NEW}>New</option>
+                                <option value={Condition.USED}>Used</option>
+                            </select>
                         </div>
                     </div>
-                </SettingsCard>
-
-                <SettingsCard title="Photos">
-                    <div className="w-full col-start gap-5 mb-5">
-                        <div className="font-semibold text-base">Use enticing photos to attract interest to your ad.</div>
-                        <p className="text-gray-300">
-                            Include pictures with different angles and details. You can upload a maximum of 12 photos, that are at least 300px wide or tall (we recommend at least 1000px).
-                            <br /><br />
-                            Drag and drop to change the order of your pictures.
-                        </p>
-                        <ImageUploader />
-                        <p className="text-gray-300">
-                            Supported formats are .jpg, .gif and .png, 5MB max
-                        </p>
+                    <div className="form-group mb-6">
+                        <label><ListTitle title="Description" /></label>
+                        <textarea rows={5} className="form-input bg-[#F5F5F5]" value={description} onChange={e => dispatch(setAdProperty({ key: 'description', value: e.target.value }))} required></textarea>
                     </div>
-                </SettingsCard>
-
-                <SettingsCard title="Locations">
-                    <Locations />
-                </SettingsCard>
-
-                <SettingsCard title="Price">
-                    <div className="flex justify-center items-start gap-3 py-3">
-                        <div className="">Price: </div>
-                        <div className="">
-                            <AdPriceInput />
-                        </div>
+                    <div className="form-group">
+                        <label><ListTitle title="Tags" /></label>
+                        <p className="text-xs text-gray-300">Increase your ad exposure. Enter up to 5 keywords someone could search to find your ad.</p>
+                        <TagInput maxTags={5} />
                     </div>
-                </SettingsCard>
+                </div>
+            </SettingsCard>
 
-                <SettingsCard title="Contact Information">
-                    <div className="col-start gap-5 px-5 max-w-[400px]">
-                        <div className="form-group">
-                            <label><ListTitle title="Phone number" /></label>
-                            <input type="text" className="form-input" placeholder="Eg: 08123456789" />
-                        </div>
-                        <div className="form-group">
-                            <label><ListTitle title="Email" /></label>
-                            <input type="email" className="form-input bg-[#EBEBEB]" placeholder="kingsleyakahibe@gmail.com" />
-                        </div>
-                    </div>
-                </SettingsCard>
+            <SettingsCard title="Photos">
+                <div className="w-full col-start gap-5 mb-5">
+                    <div className="font-semibold text-base">Use enticing photos to attract interest to your ad.</div>
+                    <p className="text-gray-300">
+                        Include pictures with different angles and details. You can upload a maximum of 12 photos, that are at least 300px wide or tall (we recommend at least 1000px).
+                        <br /><br />
+                        Drag and drop to change the order of your pictures.
+                    </p>
+                    <ImageUploader />
+                    <p className="text-gray-300">
+                        Supported formats are .jpg, .gif and .png, 5MB max
+                    </p>
+                </div>
+            </SettingsCard>
 
-                <SettingsCard title="Promote your ad">
-                    <div className="col-center max-w-[400px] mx-auto gap-3">
-                        <PromotionOptions promotions={promoOptions} />
-                        <button className="w-full p-3 my-5 bg-red-700 text-white rounded">Post advert</button>
+            <SettingsCard title="Locations">
+                {isLoaded ? <Locations isLoaded={isLoaded} /> : <div>loading...</div>}
+            </SettingsCard>
+
+            <SettingsCard title="Price">
+                <div className="flex justify-center items-start gap-3 py-3">
+                    <div className="">Price: </div>
+                    <div className="">
+                        <AdPriceInput />
                     </div>
-                </SettingsCard>
-            </div>
-        </form>
+                </div>
+            </SettingsCard>
+
+            <SettingsCard title="Contact Information">
+                <div className="col-start gap-5 px-5 max-w-[400px]">
+                    <div className="form-group">
+                        <label><ListTitle title="Phone number" /></label>
+                        <input type="text" className="form-input" placeholder="Eg: 08123456789" />
+                    </div>
+                    <div className="form-group">
+                        <label><ListTitle title="Email" /></label>
+                        <input type="email" className="form-input bg-[#EBEBEB]" placeholder="kingsleyakahibe@gmail.com" />
+                    </div>
+                </div>
+            </SettingsCard>
+
+            <SettingsCard title="Promote your ad">
+                <div className="col-center max-w-[400px] mx-auto gap-3">
+                    <PromotionOptions promotions={promoOptions} />
+                    <button onClick={handleSubmit} className="w-full p-3 my-5 bg-red-700 text-white rounded">Post advert</button>
+                    {submitError && <div className="text-xs text-red-500">{submitError}</div>}
+                </div>
+            </SettingsCard>
+        </div>
     )
 }

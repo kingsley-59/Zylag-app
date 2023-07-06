@@ -58,7 +58,7 @@ export const advert = createSlice({
             state.description = action.payload;
         },
         updateAdPhotos: (state, action: PayloadAction<File[]>) => {
-            state.photos = [...state.photos, ...action.payload];
+            state.photos = action.payload;
         },
         setAdCategory: (state, action: PayloadAction<Category>) => {
             state.category = action.payload;

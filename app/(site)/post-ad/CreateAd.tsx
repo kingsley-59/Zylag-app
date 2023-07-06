@@ -26,7 +26,7 @@ export default function CreateAd() {
 
     useEffect(() => {
         if (!categories.length) {
-            axiosInstance.get('/ads/category/all')
+            axiosInstance.get('/category')
                 .then(({ data }) => setCategories(data.data?.categories as Category[]))
                 .catch(error => {
                     console.log(error);

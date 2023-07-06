@@ -3,7 +3,7 @@ import Geocode from 'react-geocode';
 import { useState, useEffect, ChangeEvent, useMemo } from 'react';
 import { setAdProperty } from "@/app/redux/features/newAdSlice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
@@ -11,7 +11,7 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string);
 Geocode.setRegion('NG');
 
-function Map({lat = 44, lng = -80}: {lat?: number, lng?: number}) {
+function Map({ lat = 44, lng = -80 }: { lat?: number, lng?: number, }) {
     const center = useMemo(() => ({ lat, lng }), [lat, lng]);
 
     return (
@@ -21,12 +21,7 @@ function Map({lat = 44, lng = -80}: {lat?: number, lng?: number}) {
     )
 }
 
-const libraries: ("places" | "drawing" | "geometry" | "localContext" | "visualization")[] = ['places'];
-export default function Locations() {
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
-        libraries
-    });
+export default function Locations({ isLoaded }: { isLoaded: boolean }) {
     const dispatch = useAppDispatch()
     const { latitude, longitude, address } = useAppSelector(state => state.newAd);
     const [geocodeErr, setGeocodeErr] = useState<any>()
@@ -37,10 +32,14 @@ export default function Locations() {
         clearSuggestions,
     } = usePlacesAutocomplete();
 
-    useEffect(() => console.log({ready, status}), [ready, status])
+    useEffect(() => console.log({ ready, status }), [ready, status])
 
     useEffect(() => {
-        dispatch(setAdProperty({key: 'address', value: value}))
+        dispatch(setAdProperty({ key: 'address', value: value }))
+        if (!value) {
+            dispatch(setAdProperty({ key: 'latitude', value: '' }));
+            dispatch(setAdProperty({ key: 'longitude', value: '' }));
+        }
     }, [value])
 
     const handleSelect = async (address: string) => {
@@ -49,14 +48,19 @@ export default function Locations() {
 
         const results = await getGeocode({ address });
         console.log(results);
-        const { lat, lng } = await getLatLng(results[0])
+        const { lat, lng } = await getLatLng(results[0]);
         dispatch(setAdProperty({ key: 'address', value: address }));
         dispatch(setAdProperty({ key: 'latitude', value: lat }));
         dispatch(setAdProperty({ key: 'longitude', value: lng }));
     }
 
     const handleUseCurrentLocation = (e: any) => {
-        if (!e.target?.checked) return;
+        if (!e.target?.checked) {
+            dispatch(setAdProperty({ key: 'address', value: '' }));
+            dispatch(setAdProperty({ key: 'latitude', value: '' }));
+            dispatch(setAdProperty({ key: 'longitude', value: '' }));
+            return;
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -136,6 +140,7 @@ export default function Locations() {
                             Map loading...
                         </div>
                     )}
+                    {/* <Map lat={latitude as number} lng={longitude as number} /> */}
                 </div>
             </div>
         </>
