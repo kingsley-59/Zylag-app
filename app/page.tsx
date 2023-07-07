@@ -9,11 +9,13 @@ import BestSellingSection from './sections/BestSellingSection';
 import TitleBlock from './components/TitleBlock';
 import SubTitle from './components/SubTitle';
 import CategoriesSection from './sections/CategoriesSection';
+import { axiosInstance } from './config';
+import LatestAdsSection from './sections/LatestAdsSection';
 
 
 type PageData = {
   flashSales: any[];
-  bestSelling: any[]; 
+  bestSelling: any[];
   mainCategories: any[];
   categories: any[];
   products: any[];
@@ -27,8 +29,25 @@ async function getData(): Promise<PageData> {
   return data;
 }
 
+
+
+async function getAdsData(): Promise<{ categories?: TCategory[], latestAds?: TAds[] }> {
+  try {
+    const { data: categoryData } = await axiosInstance.get('/category');
+    const { data: adsData } = await axiosInstance.get('/ads');
+
+    return {
+      categories: categoryData.data?.categories || [],
+      latestAds: adsData.data?.ads || []
+    }
+  } catch (error) {
+    return {};
+  }
+}
+
 export default async function Home() {
-  const { flashSales, bestSelling, mainCategories, categories, products } = await getData();
+  const { flashSales, bestSelling, mainCategories, products } = await getData();
+  const { latestAds, categories } = await getAdsData();
 
   return (
     <div className='w-full flex flex-col gap-5 md:gap-8 lg:gap-12 2xl:max-w-[1500px] pb-5 px-5 md:px-10 lg:px-20 text-sm'>
@@ -36,8 +55,8 @@ export default async function Home() {
         <div className="w-full flex items-start">
           <div className="basis-1/4 hidden lg:block border-r-[1px] border-r-neutral-200 pt-4">
             <div className="flex flex-col items-start gap-4">
-              {mainCategories.map((val, idx) => (
-                <span key={idx}>{val}</span>
+              {categories?.map((category, idx) => (
+                <span key={idx}>{category.name}</span>
               ))}
             </div>
           </div>
@@ -64,6 +83,9 @@ export default async function Home() {
           <Link href={'/post-ad'} ><button className="bg-red-500 text-white px-5 py-3 rounded">Post Ads</button></Link>
         </div>
       </div>
+
+      {/* Latest Ads Section */}
+      <LatestAdsSection latestAds={latestAds} />
 
       {/* Flash Sales Section */}
       <FlashSalesSection flashSales={flashSales} />
@@ -100,7 +122,7 @@ export default async function Home() {
       </div>
 
       {/* Our products section */}
-      <ProductsSection products={products}/>
+      <ProductsSection products={products} />
 
       {/* Featured: New arrival */}
       <div className="w-full flex flex-col gap-4 lg:gap-8">

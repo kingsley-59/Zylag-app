@@ -1,6 +1,8 @@
 import ProductCard, { Product } from "@/app/components/ProductCard";
 import ProductImages from "@/app/components/ProductImages";
 import StarRating from "@/app/components/StarRating";
+import { axiosInstance } from "@/app/config";
+import { notFound } from "next/navigation";
 
 type Props = {
     params: {
@@ -8,39 +10,44 @@ type Props = {
     }
 }
 
-async function getProductDetails(productId: string): Promise<Product> {
+// return {
+//     name: 'Game Controller',
+//     description: 'PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.',
+//     image: '/images/game-controller.png',
+//     price: 10000,
+//     stars: 4.5,
+//     reviewCount: 20,
+//     photos: ['/images/game-controller.png', '/images/game-controller-2.png', '/images/game-controller-3.png', '/images/game-controller-4.png']
+// }
 
-    return {
-        name: 'Game Controller',
-        description: 'PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.',
-        image: '/images/game-controller.png',
-        price: 10000,
-        stars: 4.5,
-        reviewCount: 20,
-        photos: ['/images/game-controller.png', '/images/game-controller-2.png', '/images/game-controller-3.png', '/images/game-controller-4.png']
+async function getProductDetails(productId: string): Promise<TAds | undefined> {
+    try {
+        const { data, status } = await axiosInstance.get('/ads/' + productId);
+        if (status === 404) {
+            return notFound()
+        }
+        return data.data;
+    } catch (error) {
+        return;
     }
 }
 
-async function getSimilarAds(): Promise<Product[]> {
-    const wishlist = [...Array(8)].map(() => {
-        return {
-            name: "Gucci duffle bag",
-            image: "/gucci-bag.png",
-            price: 960,
-            originalprice: 1160,
-            isNew: false,
-            stars: 5,
-            reviewCount: 23
-        }
-    })
-
-    return wishlist
+async function getSimilarAds(subcategory?: string): Promise<TAds[] | undefined> {
+    
+    try {
+        const { data } = await axiosInstance.get('/ads/category/' + subcategory);
+        console.log('Subcategory Id: ', subcategory);
+        console.log(data);
+        return data.data.ads
+    } catch (error) {
+        return;
+    }
 }
 
 export default async function page({ params }: Props) {
     const { productId } = params;
     const productDetails = await getProductDetails(productId);
-    const similarAds = await getSimilarAds()
+    const similarAds = await getSimilarAds(productDetails?.subCategory._id)
 
     return (
         <div className="w-full p-5 md:p-10 lg:p-20 bg-white">
@@ -50,11 +57,11 @@ export default async function page({ params }: Props) {
                 </div>
                 <div className="col-span-full lg:col-span-4 col-start gap-5">
                     <div className="col-start gap-3">
-                        <span className="font-semibold text-2xl">{productDetails.name}</span>
-                        <StarRating stars={Math.floor(productDetails.stars)} reviews={productDetails.reviewCount} />
-                        <span className="font-semibold text-2xl">&#x20A6;{productDetails.price}</span>
+                        <span className="font-semibold text-2xl">{productDetails?.title}</span>
+                        {/* <StarRating stars={Math.floor(productDetails.stars)} reviews={productDetails.reviewCount} /> */}
+                        <span className="font-semibold text-2xl">&#x20A6;{productDetails?.price}</span>
                     </div>
-                    <p>{productDetails.description}</p>
+                    <p>{productDetails?.description}</p>
                     <hr className="border-b border-b-black w-full" />
                     <div className="w-full flex-grow rounded-[10px] bg-[#f5f5f5] p-3 col-center gap-5">
                         <div className="w-full start gap-3">
@@ -108,16 +115,20 @@ export default async function page({ params }: Props) {
                 <hr className="w-full border-t border-t-[#949494]" />
                 <div className="px-4 py-3 col-start gap-3">
                     <span className="font-semibold">Description</span>
-                    <p>{productDetails.description}</p>
+                    <p>{productDetails?.description}</p>
                 </div>
             </div>
             <div className="w-full col-start gap-10">
                 <div className="start font-semibold">Similar Ads </div>
-                <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 justify-between">
-                    {similarAds.map((ad, idx) => (
-                        <ProductCard key={idx} v={ad} />
-                    ))}
-                </div>
+                {similarAds?.length ? (
+                    <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 justify-between">
+                        {similarAds.map((ad, idx) => (
+                            <ProductCard key={idx} v={ad} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="w-full center font-bold text-opacity-50">No similar ads for this product</div>
+                )}
             </div>
         </div>
     )

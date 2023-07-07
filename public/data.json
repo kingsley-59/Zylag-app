@@ -2,37 +2,37 @@
     "flashSales": [
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         }
@@ -47,37 +47,37 @@
     "bestSelling": [
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         },
         {
             "name": "HAVIT HV-G92 Gamepad",
-            "image": "/gamepad-g92.png",
+            "photos": ["/images/gamepad-g92.png"],
             "price": 120,
             "originalprice": 160
         }
@@ -85,49 +85,49 @@
     "products": [
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": true
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": false
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": false
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": true
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": false
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": true
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": false
         },
         {
             "name": "Breed Dry Dog Food",
-            "image": "/dog-food.png",
+            "photos": "/dog-food.png",
             "price": 100,
             "isNew": false
         }

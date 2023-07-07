@@ -7,7 +7,7 @@ import { Category, setAdCategory, setAdSubcategory, setAdTitle, updateCurrentSte
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { ChangeEvent, useEffect, useState } from "react";
 
-const defaultCharacterLength = 20;
+const defaultCharacterLength = 80;
 
 export default function CreateAd() {
     const { title: adTitle, category: adCategory, subCategory: adSubcategory, currentStep } = useAppSelector(state => state.newAd);

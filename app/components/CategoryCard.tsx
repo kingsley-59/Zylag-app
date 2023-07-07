@@ -19,7 +19,7 @@ export default function CategoryCard({ v }: { v: string }) {
     return (
         <div className="px-2">
             <div className="flex flex-col gap-3 p-4 justify-center items-center border rounded-md hover:bg-red-500 hover:text-white">
-                <span>{CategoryIconMap[v.toLocaleLowerCase()] ?? <></>}</span>
+                {/* <span>{CategoryIconMap[v?.toLocaleLowerCase()] ?? <></>}</span> */}
                 <span>{v}</span>
             </div>
         </div>

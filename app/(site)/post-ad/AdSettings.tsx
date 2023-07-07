@@ -1,5 +1,5 @@
 
-import { Condition, setAdCondition, setAdPrice, setAdPromoCategory, setAdPromoOption, setAdProperty, setAdTitle } from "@/app/redux/features/newAdSlice"
+import { Condition, setAdCondition, setAdPrice, setAdProperty, setAdTitle, reset } from "@/app/redux/features/newAdSlice"
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import ImageUploader from "./ImageUploader";
@@ -8,6 +8,7 @@ import PromotionOptions, { TPromotionOptions, formatPromoOptions } from "./Promo
 import Locations from "./Locations";
 import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
 import { useLoadScript } from "@react-google-maps/api";
+import { useRouter } from "next/navigation";
 
 
 interface TagInputProps {
@@ -135,6 +136,7 @@ export default function AdSettings() {
     const dispatch = useAppDispatch();
     const [promoOptions, setPromoOptions] = useState<TPromotionOptions>([]);
     const [submitError, setSubmitError] = useState('');
+    const router = useRouter();
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
@@ -181,6 +183,8 @@ export default function AdSettings() {
             console.log(res);
             if (res.status === 200) {
                 dispatch(setSuccessMsg('Ad created successfully'));
+                dispatch(reset());
+                setTimeout(() => router.push('/'), 2000);
             } else {
                 setSubmitError(res.data.message);
             }

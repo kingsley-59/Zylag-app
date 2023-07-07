@@ -1,3 +1,4 @@
+import Link from "next/link";
 import EyeIcon from "../icons/EyeIcon";
 import HeartIcon from "../icons/HeartIcon";
 import StarRating from "./StarRating";
@@ -16,12 +17,13 @@ export type Product = {
 
 
 
-export default function ProductCard({ v }: { v: Product }) {
+export default function ProductCard({ v }: { v: TAds }) {
+    
     return (
         <div className='px-2'>
             <div className="relative h-[200px] md:h-auto md:aspect-square bg-[#f5f5f5] p-4 mb-3 flex justify-center items-center">
                 <div className="absolute top-[5px] left-[5px] col-start gap-3">
-                    {v.originalprice && <div className="rounded-[4px] bg-red-500 text-xs text-white px-[5px] py-1">-{(100 - (v.price / v.originalprice) * 100).toFixed(0)}%</div>}
+                    {v.discountPrice && <div className="rounded-[4px] bg-red-500 text-xs text-white px-[5px] py-1">-{(100 - (v.discountPrice / (v.price as number)) * 100).toFixed(0)}%</div>}
                     {v.isNew && <div className="rounded-[4px] bg-blue-500 text-xs text-white px-[5px] py-1">New</div>}
                 </div>
                 {v.isNew && <div className="absolute top-[5px] left-[5px] rounded-[4px] bg-blue-500 text-xs text-white px-[5px] py-1">New</div>}
@@ -29,16 +31,16 @@ export default function ProductCard({ v }: { v: Product }) {
                     <span className='rounded-full p-[5px] aspect-square flex justify-center items-center bg-white cursor-pointer'> <HeartIcon /> </span>
                     <span className='rounded-full p-[5px] aspect-square flex justify-center items-center bg-white cursor-pointer'> <EyeIcon /> </span>
                 </div>
-                <img src={"/images" + v.image} alt={v.name} />
+                <img src={v.photos[0] as string} alt={v.title} />
             </div>
-            <div className="font-semibold mb-2">{v.name}</div>
+            <Link href={'/product/'+v._id} ><div className="font-semibold mb-2">{v.title}</div></Link>
             <div className="flex items-center gap-2">
-                <span className='text-red-500'>&#x20A6;{v.price}</span>
-                {v.originalprice && <span className="text-neutral-300 line-through">&#x20A6;{v.originalprice}</span>}
+                <span className='text-red-500'>&#x20A6;{v.discountPrice || v.price}</span>
+                {v.discountPrice && <span className="text-neutral-300 line-through">&#x20A6;{v.price}</span>}
             </div>
-            {v?.stars && <div className="">
+            {/* {v?.stars && <div className="">
                 <StarRating stars={v.stars} reviews={v?.reviewCount} />
-            </div>}
+            </div>} */}
         </div>
     )
 }

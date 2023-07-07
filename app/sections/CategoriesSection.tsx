@@ -8,13 +8,13 @@ import ArrowRight from "../icons/ArrowRight";
 import { useRef } from "react";
 
 
-export default function CategoriesSection({ categories }: { categories: any[] }) {
+export default function CategoriesSection({ categories }: { categories?: TCategory[] }) {
     const slider22 = useRef<any>(null);
     const settings22: Settings = {
         dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 4,
         initialSlide: 0,
         responsive: [
@@ -57,8 +57,8 @@ export default function CategoriesSection({ categories }: { categories: any[] })
                 </div>
                 <div className="">
                     <Slider ref={slider22} {...settings22}>
-                        {categories.map((v, idx) => (
-                            <CategoryCard v={v} />
+                        {categories?.map((v, idx) => (
+                            <CategoryCard v={v.name} />
                         ))}
                     </Slider>
                 </div>

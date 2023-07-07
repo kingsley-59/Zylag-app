@@ -24,7 +24,7 @@ export default function ImageUploader() {
         if (e.target.files) {
             const files = Array.from(e.target.files);
             const validFiles = files.filter(
-                (file) => file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png'
+                (file) => file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png' || file.type === 'image/webp'
             );
 
             setSelectedImages((prevImages) => [...prevImages, ...validFiles]);
@@ -46,7 +46,7 @@ export default function ImageUploader() {
             >
                 +
             </label>
-            <input type="file" id="ad-photos" className="hidden" accept=".jpg, .gif, .png" multiple onChange={handleFileInputChange} />
+            <input type="file" id="ad-photos" className="hidden" accept=".jpeg, .jpg, .gif, .png, .webp" multiple onChange={handleFileInputChange} />
             {selectedImages.map((image, index) => (
                 <div key={index} className="relative w-[140px] aspect-square">
                     <img src={URL.createObjectURL(image)} alt={`Image ${index}`} className="w-full h-full object-center object-cover" />
