@@ -87,53 +87,12 @@ export default async function Home() {
       {/* Latest Ads Section */}
       <LatestAdsSection latestAds={latestAds} />
 
-      {/* Flash Sales Section */}
-      <FlashSalesSection flashSales={flashSales} />
-
       {/* Browse By Category Section */}
       <CategoriesSection categories={categories} />
 
-      {/* This Month Best Selling Section */}
-      <BestSellingSection bestSelling={bestSelling} />
-
-      <div className="w-full bg-dark-red p-5 lg:p-10 flex flex-col-reverse md:flex-row md:flex-nowrap items-center text-white font-semibold rounded-2xl">
-        <div className="basis-1/2 flex flex-col items-start gap-5">
-          <span>Categories</span>
-          <span className='text-4xl lg:text-5xl'>Enhance Your Music Experience</span>
-          <div className="start gap-4 flex-wrap">
-            <div className="rounded-full bg-white text-black p-[5px] w-[60px] aspect-square col-center">
-              23 <br /> <span className='text-xs'>Hours</span>
-            </div>
-            <div className="rounded-full bg-white text-black p-[5px] w-[60px] aspect-square col-center">
-              23 <br /> <span className='text-xs'>Days</span>
-            </div>
-            <div className="rounded-full bg-white text-black p-[5px] w-[60px] aspect-square col-center">
-              23 <br /> <span className='text-xs'>Minutes</span>
-            </div>
-            <div className="rounded-full bg-white text-black p-[5px] w-[60px] aspect-square col-center">
-              23 <br /> <span className='text-xs'>Seconds</span>
-            </div>
-          </div>
-          <button className='bg-black text-white px-5 py-3 rounded-md'>Buy Now</button>
-        </div>
-        <div className="basis-1/2 center p-5 w-full">
-          <img src="/images/jbl-boombox.png" alt="jbl boombox" />
-        </div>
-      </div>
-
       {/* Our products section */}
-      <ProductsSection products={products} />
-
-      {/* Featured: New arrival */}
-      <div className="w-full flex flex-col gap-4 lg:gap-8">
-        <TitleBlock title={'Featured'} />
-        <div className="between">
-          <SubTitle title={'New Arrival'} />
-        </div>
-        <div className="grid grid-rows-2 grid-flow-col gap-4 lg:gap-5">
-          <div></div>
-        </div>
-      </div>
+      <ProductsSection products={latestAds} />
+      
     </div>
   )
 }

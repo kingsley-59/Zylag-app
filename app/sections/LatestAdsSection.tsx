@@ -57,9 +57,9 @@ export default function LatestAdsSection({latestAds}: LatestAdsProps) {
     return (
         <>
             <div className="w-full flex flex-col gap-4 lg:gap-8">
-                <TitleBlock title={"Latest"} />
+                <TitleBlock title={"Today's"} />
                 <div className="flex justify-between items-center">
-                    <SubTitle title={'Most Recent Ads'} />
+                    <SubTitle title={'Trending Ads'} />
                     <div className="px-5 flex gap-3 items-center ">
                         <div onClick={e => slider11?.current?.slickPrev()} className="rounded-full bg-slate-200 p-2 cursor-pointer hover:bg-slate-100 hover:shadow-sm"><ArrowLeft /></div>
                         <div onClick={e => slider11?.current?.slickNext()} className="rounded-full bg-slate-200 p-2 cursor-pointer hover:bg-slate-100 hover:shadow-sm"><ArrowRight /></div>
