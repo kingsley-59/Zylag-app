@@ -14,10 +14,6 @@ import DeleteAccount from "./DeleteAccount";
 
 
 
-export const metadata = {
-  title: 'Dashboard (Settings) | Zylag Ecomm.'
-}
-
 export default function page() {
   
 

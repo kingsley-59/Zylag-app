@@ -4,15 +4,11 @@ import { setErrorMsg, setSuccessMsg } from "@/app/redux/features/alertSlice";
 import { setAuthState } from "@/app/redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import axios from "axios";
-import { Metadata } from "next";
 import Link from "next/link";
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from "react";
 
 
-export const metadata: Metadata = {
-    title: 'Login | Zylag Ecomm.'
-}
 
 
 export default function page() {
